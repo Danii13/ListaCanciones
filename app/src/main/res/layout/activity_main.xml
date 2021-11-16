@@ -17,4 +17,10 @@
         app:layout_constraintTop_toTopOf="parent"
         tools:layout="@layout/fragment_cancion_list"/>
 
+    <fragment
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:id="@+id/cancion_detail_fragment"
+        android:name="com.dani.listacanciones.fragments.DetailFragment"/>
+
 </androidx.constraintlayout.widget.ConstraintLayout>

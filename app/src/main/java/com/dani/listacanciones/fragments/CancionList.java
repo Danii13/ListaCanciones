@@ -1,12 +1,15 @@
 package com.dani.listacanciones.fragments;
 
+import android.content.Context;
 import android.os.Bundle;
 
+import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
-
+import com.dani.listacanciones.interfaces.iComunicaFragments;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.ListView;
 
 import com.dani.listacanciones.R;
@@ -27,6 +30,7 @@ public class CancionList extends Fragment {
     private static final String ARG_PARAM1 = "param1";
     private static final String ARG_PARAM2 = "param2";
 
+    iComunicaFragments iMuscia;
     private ListView lvCanciones;
     private CancionListAdapter adaptador;
     private ArrayList<Cancion> cancionesList = new ArrayList<>();
@@ -59,6 +63,12 @@ public class CancionList extends Fragment {
     }
 
     @Override
+    public void onAttach(@NonNull Context context) {
+        super.onAttach(context);
+        iMuscia = (iComunicaFragments) context;
+    }
+
+    @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         if (getArguments() != null) {
@@ -76,14 +86,50 @@ public class CancionList extends Fragment {
         // 2 - A partir de este view vamos a obtener todos los views del Fragment
         lvCanciones = view.findViewById(R.id.Cancion_listView);
         // 3 - Traemos el resto de codigo del MainActivity
-        cancionesList.add(new Cancion("Walls", "Que bien te quedaba", "https://cdn.alfabetajuega.com/wp-content/uploads/2020/03/bulbasaur-pok%C3%A9mon.png", R.raw.sinmas));
-        cancionesList.add(new Cancion("Gines", "Que bien te quedaba", "https://images.genius.com/55eb8f1811436cccc179582019d33241.1000x1000x1.jpg", R.raw.sinmas));
+        cancionesList.add(new Cancion("Walls", "Que bien te quedaba", "https://images.genius.com/55eb8f1811436cccc179582019d33241.1000x1000x1.jpg", R.raw.sinmas));
+        cancionesList.add(new Cancion("Babi, Miranda", "Lo sabía", "https://images.genius.com/2c6775acc747cf8413b13d15d74483f0.1000x1000x1.jpg", R.raw.sinmas));
+
+        cancionesList.add(new Cancion("One Republic", "Counting stars", "https://m.media-amazon.com/images/I/812bZtstsBL._SS500_.jpg", R.raw.sinmas));
+        cancionesList.add(new Cancion("Passenger", "Let her go", "https://m.media-amazon.com/images/I/818mfPpYxdL._SS500_.jpg", R.raw.sinmas));
+
+        cancionesList.add(new Cancion("Walls", "Complicao", "https://images.genius.com/a2755733709366c1896d3f807ca750ad.1000x1000x1.png", R.raw.sinmas));
+        cancionesList.add(new Cancion("Nadal015", "Invictus", "https://i.scdn.co/image/ab67616d0000b2734743720c985d6156b6e336f7", R.raw.sinmas));
+
+        cancionesList.add(new Cancion("Shawn Mendes", "Stitches", "https://i.scdn.co/image/ab67616d0000b273908f7df282edee5f2be63121", R.raw.sinmas));
+        cancionesList.add(new Cancion("Alec Benjamin", "Swim", "https://i.scdn.co/image/ab67616d0000b273459d675aa0b6f3b211357370", R.raw.sinmas));
+
+        cancionesList.add(new Cancion("Swit eme", "Breakdown", "https://lite-images-i.scdn.co/image/ab67616d0000b2739ec9601c5c3bd1b8dd03d3c5", R.raw.sinmas));
+        cancionesList.add(new Cancion("Babi", "Cocaina", "https://i.scdn.co/image/ab67616d0000b273d8adae0a0e0e788506a0841b", R.raw.sinmas));
 
         adaptador = new CancionListAdapter(getActivity(),cancionesList,R.id.item);
 
         lvCanciones.setAdapter(adaptador);
 
+        lvCanciones.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+
+                Cancion selectedCancion = (Cancion) adaptador.getItem(i);
+
+                if (selectedCancion != null) {
+                    if (iMuscia != null) {
+
+                    iMuscia.enviarCancion(selectedCancion);
+                    iMuscia.cambioLayout();
+                    }
+
+                }
+            }
+
+
+        });
 
         return view;
+
+
+
     }
+
+
+
 }

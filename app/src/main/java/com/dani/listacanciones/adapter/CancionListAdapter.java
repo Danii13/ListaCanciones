@@ -55,9 +55,9 @@ public class CancionListAdapter extends BaseAdapter{
         //llenamos los elementos de la lista
         cancionArtistaTv.setText(cancion.getAutor());
         cancionTituloTv.setText(cancion.getTitulo());
-        //Picasso.get().load(cancion.getImageUrl()).into(cancionImage);
+        Picasso.get().load(cancion.getImageUrl()).into(cancionImage);
         //cancionImage.setImageResource(R.drawable.quebien);
-        Glide.with(view).load(cancion.getImageUrl()).into(cancionImage);
+        //Glide.with(view).load(cancion.getImageUrl()).into(cancionImage);
 
 
 
